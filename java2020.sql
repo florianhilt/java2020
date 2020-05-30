@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  jeu. 28 mai 2020 à 22:53
+-- Généré le :  sam. 30 mai 2020 à 22:55
 -- Version du serveur :  10.4.10-MariaDB
 -- Version de PHP :  7.3.12
 
@@ -33,7 +33,18 @@ CREATE TABLE IF NOT EXISTS `cours` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nom` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `cours`
+--
+
+INSERT INTO `cours` (`id`, `nom`) VALUES
+(1, 'Thermodynamique'),
+(2, 'Electromagnetisme'),
+(3, 'Analyse de Fourier'),
+(4, 'Mathematiques'),
+(5, 'POO Java');
 
 -- --------------------------------------------------------
 
@@ -47,6 +58,18 @@ CREATE TABLE IF NOT EXISTS `enseignant` (
   `id_cours` int(11) NOT NULL,
   PRIMARY KEY (`id_utilisateur`,`id_cours`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `enseignant`
+--
+
+INSERT INTO `enseignant` (`id_utilisateur`, `id_cours`) VALUES
+(13, 1),
+(13, 2),
+(14, 3),
+(14, 4),
+(15, 1),
+(15, 2);
 
 -- --------------------------------------------------------
 
@@ -62,6 +85,24 @@ CREATE TABLE IF NOT EXISTS `etudiant` (
   PRIMARY KEY (`id_utilisateur`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
+--
+-- Déchargement des données de la table `etudiant`
+--
+
+INSERT INTO `etudiant` (`id_utilisateur`, `numero`, `id_groupe`) VALUES
+(1, 1, 1),
+(2, 2, 1),
+(3, 3, 2),
+(4, 4, 2),
+(5, 5, 3),
+(6, 6, 3),
+(7, 7, 4),
+(8, 8, 4),
+(9, 9, 5),
+(10, 10, 5),
+(11, 11, 6),
+(12, 12, 6);
+
 -- --------------------------------------------------------
 
 --
@@ -74,7 +115,19 @@ CREATE TABLE IF NOT EXISTS `groupe` (
   `nom` varchar(255) NOT NULL,
   `id_promotion` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `groupe`
+--
+
+INSERT INTO `groupe` (`id`, `nom`, `id_promotion`) VALUES
+(1, 'TD01', 1),
+(2, 'TD02', 1),
+(3, 'TD01', 2),
+(4, 'TD02', 2),
+(5, 'TD01', 3),
+(6, 'TD02', 3);
 
 -- --------------------------------------------------------
 
@@ -87,7 +140,16 @@ CREATE TABLE IF NOT EXISTS `promotion` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nom` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `promotion`
+--
+
+INSERT INTO `promotion` (`id`, `nom`) VALUES
+(1, 'ING1'),
+(2, 'ING2'),
+(3, 'ING3');
 
 -- --------------------------------------------------------
 
@@ -102,7 +164,19 @@ CREATE TABLE IF NOT EXISTS `salle` (
   `capacite` int(11) NOT NULL,
   `id_site` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `salle`
+--
+
+INSERT INTO `salle` (`id`, `nom`, `capacite`, `id_site`) VALUES
+(1, 'EM009', 200, 1),
+(2, 'SC210', 35, 1),
+(3, 'P445', 100, 2),
+(4, 'P417', 35, 2),
+(5, 'G002', 100, 3),
+(6, 'G006', 35, 3);
 
 -- --------------------------------------------------------
 
@@ -114,13 +188,21 @@ DROP TABLE IF EXISTS `seance`;
 CREATE TABLE IF NOT EXISTS `seance` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `semaine` int(11) NOT NULL,
+  `jour` varchar(255) NOT NULL,
   `heure_debut` varchar(255) NOT NULL,
   `heure_fin` varchar(255) NOT NULL,
   `etat` int(11) NOT NULL,
   `id_cours` int(11) NOT NULL,
   `id_type` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `seance`
+--
+
+INSERT INTO `seance` (`id`, `semaine`, `jour`, `heure_debut`, `heure_fin`, `etat`, `id_cours`, `id_type`) VALUES
+(1, 1, 'Lundi', '9h00', '11h00', 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -172,7 +254,16 @@ CREATE TABLE IF NOT EXISTS `site` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nom` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `site`
+--
+
+INSERT INTO `site` (`id`, `nom`) VALUES
+(1, 'E1'),
+(2, 'E2'),
+(3, 'E4');
 
 -- --------------------------------------------------------
 
@@ -185,7 +276,18 @@ CREATE TABLE IF NOT EXISTS `type_cours` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nom` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `type_cours`
+--
+
+INSERT INTO `type_cours` (`id`, `nom`) VALUES
+(1, 'Amphi'),
+(2, 'TP'),
+(3, 'TD'),
+(4, 'Demi-Groupe'),
+(5, 'DS');
 
 -- --------------------------------------------------------
 
@@ -202,16 +304,28 @@ CREATE TABLE IF NOT EXISTS `utilisateur` (
   `prenom` varchar(255) NOT NULL,
   `droit` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `utilisateur`
 --
 
 INSERT INTO `utilisateur` (`id`, `email`, `password`, `nom`, `prenom`, `droit`) VALUES
-(1, 'florianhilt@gmail.com', 'password', 'hilt', 'Florian', 1),
-(2, 'mickaelgremy@gmail.com', 'salutsalut', 'Gremy', 'Micka', 2),
-(3, 'illyas@gmail.com', 'polaketyaro', 'Boudj', 'Illyas', 3);
+(1, 'florian.hilt@edu.ece.fr', 'fh', 'Hilt', 'Florian', 1),
+(2, 'valentin.boucher@edu.ece.fr', 'vb', 'Boucher', 'Valentin', 1),
+(3, 'mickael.gremy@edu.ece.fr', 'mg', 'Gremy', 'Mickael', 1),
+(4, 'illyas.boudjemai@edu.ece.fr', 'ib', 'Boudjemai', 'Illyas', 1),
+(5, 'dominik.carbon@edu.ece.fr', 'dc', 'Carbon', 'Dominik', 1),
+(6, 'gabriel.attal@edu.ece.fr', 'ga', 'Attal', 'Gabriel', 1),
+(7, 'thomas.popielski@edu.ece.fr', 'tp', 'Popielski', 'Thomas', 1),
+(8, 'paul.coutiere@edu.ece.fr', 'pc', 'Coutiere', 'Paul', 1),
+(9, 'jordan.kujundzik@edu.ece.fr', 'jk', 'Kujundzik', 'Jordan', 1),
+(10, 'charles.lefort@edu.ece.fr', 'cl', 'Lefort', 'Charles', 1),
+(11, 'ayoub.ouboujemaa@edu.ece.fr', 'ao', 'Ouboujemaa', 'Ayoub', 1),
+(12, 'collin.ferret@edu.ece.fr', 'cf', 'Ferret', 'Collin', 1),
+(13, 'thomas.guillemot@ece.fr', 'tg', 'Guillemot', 'Thomas', 2),
+(14, 'fabienne.coudray@ece.fr', 'fc', 'Coudray', 'Fabienne', 2),
+(15, 'christine.crambes@ece.fr', 'cc', 'Crambes', 'Christine', 2);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

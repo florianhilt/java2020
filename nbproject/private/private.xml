@@ -3,10 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/flori/Documents/ING%203/Projet%20POO%20Java/java2020/src/vue/Grille.java</file>
-            <file>file:/C:/Users/flori/Documents/ING%203/Projet%20POO%20Java/java2020/src/vue/LoginPage.java</file>
-            <file>file:/C:/Users/flori/Documents/ING%203/Projet%20POO%20Java/java2020/src/vue/PageEtudiant.java</file>
-            <file>file:/C:/Users/flori/Documents/ING%203/Projet%20POO%20Java/java2020/src/controleur/PageEtudiant.java</file>
+            <file>file:/C:/Users/flori/Documents/ING%203/Projet%20POO%20Java/java2020/src/vue/ScolaritéV.java</file>
+            <file>file:/C:/Users/flori/Documents/ING%203/Projet%20POO%20Java/java2020/src/controleur/ScolaritéC.java</file>
+            <file>file:/C:/Users/flori/Documents/ING%203/Projet%20POO%20Java/java2020/src/modele/ScolaritéM.java</file>
+            <file>file:/C:/Users/flori/Documents/ING%203/Projet%20POO%20Java/java2020/src/vue/LoginV.java</file>
         </group>
     </open-files>
 </project-private>
