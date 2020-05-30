@@ -1,9 +1,9 @@
-package planning;
+package modele;
 import java.awt.event.*;
 import java.awt.*;
 import javax.swing.*;
 
-public class Grille extends JPanel {
+public class EtudiantM extends JPanel {
     
     
     
@@ -37,25 +37,22 @@ public class Grille extends JPanel {
     }
     
     
-    public Grille()
+    public EtudiantM()
     {
         setLayout(null);
         
-        JButton button = new JButton("test");
-        JButton button2 = new JButton("test2");
-        JButton button3 = new JButton("test3");
-        
-        button.setBounds(600, 100, 120, 30);
-        add(button);
-        
-        button2.setBounds(100, 100, 120, 30);
-        add(button2);
-        
-        button3.setBounds(100, 500, 120, 30);
-        add(button3);
         
         
         
+        JTextField rechercheEtudiant = new JTextField();
+        Dimension size = rechercheEtudiant.getPreferredSize();
+        rechercheEtudiant.setBounds(100, 20, 150, size.height);
+        add(rechercheEtudiant);
+        
+        JButton ok = new JButton("Rechercher");
+        Dimension size1 = ok.getPreferredSize();
+        ok.setBounds(270, 20, size1.width, size.height);
+        add(ok);
         
         
         //jours
@@ -147,12 +144,6 @@ public class Grille extends JPanel {
         Dimension size18 = DixNeufH.getPreferredSize();
         DixNeufH.setBounds(60, 602, size18.width, size18.height);
         add(DixNeufH);
-        
-        
-        
-        
-        
-        
         
     }
     

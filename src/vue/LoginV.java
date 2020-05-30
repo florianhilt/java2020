@@ -1,4 +1,4 @@
-package planning;
+package vue;
 import javax.swing.*;
 import java.awt.event.*;
 import java.awt.*;
@@ -8,7 +8,7 @@ import java.sql.*;
 
 
 
-public class LoginPage extends JFrame implements ActionListener
+public class LoginV extends JFrame implements ActionListener
 {
     JButton blogin    = new JButton("Continue");
     JTextField ID = new JTextField(20);
@@ -27,7 +27,7 @@ public class LoginPage extends JFrame implements ActionListener
     
     
 
-    public LoginPage()
+    public LoginV()
     {
    
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
@@ -38,7 +38,7 @@ public class LoginPage extends JFrame implements ActionListener
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         panel.setLayout(null);
-        frame.setTitle("Login Page");
+        frame.setTitle("Page de connexion");
         frame.setResizable(false);
         frame.getContentPane().setBackground(Color.lightGray);
 
@@ -126,7 +126,7 @@ public void actionPerformed(ActionEvent ae)
             
             if (RS.next())
             {
-                new PageEtudiant();
+                new EtudiantV();
                 this.dispose();
             }
             else
@@ -206,7 +206,7 @@ public void actionPerformed(ActionEvent ae)
     } */
 }
 
-public static void main( String[] args){new LoginPage();}
+public static void main( String[] args){new LoginV();}
 
 }
 
