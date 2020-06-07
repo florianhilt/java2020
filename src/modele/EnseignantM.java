@@ -14,44 +14,43 @@ import java.util.*;
  * @author flori
  */
 
-public class EtudiantM {
-    
-    protected String nomEtudiant;
-    protected String prenomEtudiant;
-    protected String IdentiteEtudiant;
-    protected int idEtudiant;
-    
-    protected String nomEtudiant2;
-    protected String prenomEtudiant2;
+public class EnseignantM {
     
     
-    protected ArrayList<String> ListEtudiant = new ArrayList<>();
+    protected String nomEnseignant;
+    protected String prenomEnseignant;
+    protected String IdentiteEnseignant;
+    protected int idEnseignant;
     
+    protected String nomEnseignant2;
+    protected String prenomEnseignant2;
+    
+    protected ArrayList<String> ListEnseignant = new ArrayList<>();
     
     protected int id_groupe;
-
-    public EtudiantM()
+    
+    public EnseignantM()
     {
         
     }
     
-    public ArrayList getEtudiant()
+    public ArrayList getEnseignant()
     {
         try
         {
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/java2020?useSSL=false", "root", "");
             
-            String SqlEtu = "select * from utilisateur where droit = 1 order by nom ASC";
+            String SqlEtu = "select * from utilisateur where droit = 2 order by nom ASC";
             PreparedStatement pst = con.prepareStatement(SqlEtu);
             
             ResultSet RS = pst.executeQuery();
             
             while (RS.next())
             {
-                nomEtudiant = RS.getString("nom");
-                prenomEtudiant = RS.getString("prenom");
-                IdentiteEtudiant = prenomEtudiant + " " + nomEtudiant;
-                ListEtudiant.add(IdentiteEtudiant);
+                nomEnseignant = RS.getString("nom");
+                prenomEnseignant = RS.getString("prenom");
+                IdentiteEnseignant = prenomEnseignant + " " + nomEnseignant;
+                ListEnseignant.add(IdentiteEnseignant);
             }
         }
         catch(Exception exception)
@@ -59,17 +58,49 @@ public class EtudiantM {
             exception.printStackTrace();
         }
         
-        return ListEtudiant;
+        return ListEnseignant;
     }
     
+    public int idEnseignant(String Enseignant)
+    {
+      
+            String[] array = Enseignant.split(" ");
+
+            prenomEnseignant2 = array[0];
+            nomEnseignant2 = array[1];
+
+
+            try
+            {
+                Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/java2020?useSSL=false", "root", "");
+
+                String SqlType = "select * from utilisateur where nom =" + "'" + nomEnseignant2 + "'" + "AND prenom =" + "'" + prenomEnseignant2 + "'";
+                PreparedStatement pst = con.prepareStatement(SqlType);
+
+                ResultSet RS = pst.executeQuery();
+
+                while (RS.next())
+                {
+                    idEnseignant = RS.getInt("id");
+                }
+
+            }
+            catch(Exception exception)
+            {
+                exception.printStackTrace();
+            }
+        
+        return idEnseignant;
+    }
     
-    public int getGroupe(int id)
+     public int getGroupe(int id)
     {
         try
         {
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/java2020?useSSL=false", "root", "");
             
-            String SqlType = "select * from etudiant where id_utilisateur =" + id;
+            String SqlType = "SELECT * FROM seance_groupes sg" +
+                            " INNER JOIN seance_enseignants se ON sg.id_seance = se.id_seance where se.id_enseignant=" + id;
             PreparedStatement pst = con.prepareStatement(SqlType);
             
             ResultSet RS = pst.executeQuery();
@@ -88,9 +119,7 @@ public class EtudiantM {
         return id_groupe;
     }
     
-    
-   
-    public ArrayList getListSéance(int id_Groupe, String idSemaine)       
+    public ArrayList getListSéance(int idEnseignant, String idSemaine)       
     {
         ArrayList<String> ListSeances = new ArrayList<>();
         
@@ -100,7 +129,7 @@ public class EtudiantM {
             {
                 Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/java2020?useSSL=false", "root", "");
 
-                String SqlType = "select * from seance_groupes where id_groupe =" + id_Groupe;
+                String SqlType = "select * from seance_enseignants where id_enseignant =" + idEnseignant;
                 PreparedStatement pst = con.prepareStatement(SqlType);
 
                 ResultSet RS = pst.executeQuery();
@@ -125,7 +154,7 @@ public class EtudiantM {
                 Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/java2020?useSSL=false", "root", "");
 
                 String SqlType = "SELECT * from seance_groupes sg" +
-                        " INNER JOIN seance s ON sg.id_seance = s.id where sg.id_groupe=" + id_Groupe + " AND s.semaine =" + "'" + idSemaine + "'";
+                        " INNER JOIN seance s ON sg.id_seance = s.id where sg.id_groupe=" + idEnseignant + " AND s.semaine =" + "'" + idSemaine + "'";
                 PreparedStatement pst = con.prepareStatement(SqlType);
 
                 ResultSet RS = pst.executeQuery();
@@ -143,6 +172,7 @@ public class EtudiantM {
         }
         return ListSeances;
     }
+    
     
     public ArrayList<Seance> recupererInfos(ArrayList<String> idSéance)
     {
@@ -188,35 +218,5 @@ public class EtudiantM {
         return SeanceList;
     }
     
-    public int idEtudiant(String Etudiant)
-    {
-      
-            String[] array = Etudiant.split(" ");
-
-            prenomEtudiant2 = array[0];
-            nomEtudiant2 = array[1];
-
-
-            try
-            {
-                Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/java2020?useSSL=false", "root", "");
-
-                String SqlType = "select * from utilisateur where nom =" + "'" + nomEtudiant2 + "'" + "AND prenom =" + "'" + prenomEtudiant2 + "'";
-                PreparedStatement pst = con.prepareStatement(SqlType);
-
-                ResultSet RS = pst.executeQuery();
-
-                while (RS.next())
-                {
-                    idEtudiant = RS.getInt("id");
-                }
-
-            }
-            catch(Exception exception)
-            {
-                exception.printStackTrace();
-            }
-        
-        return idEtudiant;
-    }
+    
 }

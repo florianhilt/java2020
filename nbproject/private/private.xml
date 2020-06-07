@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="1">
+        <file>
+            <url>src/modele/ScolaritéM.java</url>
+            <bookmark id="1">
+                <name/>
+                <line>693</line>
+                <key/>
+            </bookmark>
+        </file>
+    </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/C:/Users/flori/Documents/ING%203/Projet%20POO%20Java/java2020/src/modele/EtudiantM.java</file>
-            <file>file:/C:/Users/flori/Documents/ING%203/Projet%20POO%20Java/java2020/src/controleur/ScolaritéC.java</file>
-            <file>file:/C:/Users/flori/Documents/ING%203/Projet%20POO%20Java/java2020/src/vue/ScolaritéV.java</file>
-            <file>file:/C:/Users/flori/Documents/ING%203/Projet%20POO%20Java/java2020/src/modele/ScolaritéM.java</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>

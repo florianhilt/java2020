@@ -6,13 +6,12 @@ package controleur;
  * Il insert des données rentrées dans l'interface graphique et les insert dans la BDD
  * @author flori
  */
-
-public class EtudiantC {
+public class EnseignantC {
     
     protected int MatiereX;
     protected int MatiereY;
     
-    public EtudiantC()
+    public EnseignantC()
     {
         
     }

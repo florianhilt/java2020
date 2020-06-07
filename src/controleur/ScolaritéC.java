@@ -3,6 +3,13 @@ package controleur;
 import java.sql.*;
 import java.util.ArrayList;
 
+/**
+ * Package controle 
+ * Ce package établit la connexion entre l'interface graphique et la BDD
+ * Il insert des données rentrées dans l'interface graphique et les insert dans la BDD
+ * @author flori
+ */
+
 public class ScolaritéC {
     
     
@@ -214,43 +221,6 @@ public class ScolaritéC {
        
     }
     
-    /*public int idSite(String Site)
-    {   
-        
-        if (" ".equals(Site))
-        {
-            id_site = 0;
-        }
-        else
-        {
-            try
-            {
-                Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/java2020?useSSL=false", "root", "");            
-
-                String SqlType = "select * from site where nom =" + "'" + Site + "'";
-
-                PreparedStatement pst = con.prepareStatement(SqlType);
-
-                ResultSet RS = pst.executeQuery();
-
-                while (RS.next())
-                {
-                    id_site = RS.getInt("id");
-                }
-
-            }
-            catch(Exception exception)
-            {
-                exception.printStackTrace();
-            }
-        }
-        
-        System.out.println(id_site);
-        
-    return id_site; 
-       
-    }*/
-    
     public int idSalle(String Salle)
     {       
         if (" ".equals(Salle))
@@ -281,33 +251,13 @@ public class ScolaritéC {
                 exception.printStackTrace();
             }
         }
-        
-        System.out.println(id_salle);
-        
+              
         return id_salle; 
        
     }
     
     
-    
-    
-    
-    
-    
-    
-   
-    
-    
-    
-    
-    
-    
     ///////////////////////////////////////////////////////////////////////////////////////////
-    
-    
-    
-    
-    
     
         
     public void CreerSeance(String Semaine, String Jour, String heureD, String heureF, int etat, String cours, String type)
@@ -437,6 +387,161 @@ public class ScolaritéC {
     }
     
     
+    public void AnnulerSéance(String id)
+    {
+        try
+        {
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/java2020?useSSL=false", "root", "");
+                       
+           
+            String SQL = "UPDATE seance SET etat = 0 where id="+ "'" + id + "'";
             
+            PreparedStatement pst = con.prepareStatement(SQL);
+            
+            pst.executeUpdate();
+            
+        }
+        catch(Exception exception)
+        {
+            exception.printStackTrace();
+        }
+    }
+    
+    public void ModifierSeance(String id, String Semaine, String Jour, String HeureD, String HeureF, String Cours, String Type)
+    {
+        ScolaritéC scolaC = new ScolaritéC();
+        int id_coursBDD = scolaC.idCours(Cours);
+        int id_typeBDD = scolaC.idType(Type);
+   
+        if(Type == " ")
+        {
+            id_typeBDD = 0;
+        }
+      
+        try
+        {
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/java2020?useSSL=false", "root", "");               
+
+            String SQL = "UPDATE seance SET semaine=" + "'" + Semaine + "'," 
+                    + "jour =" + "'" + Jour + "'," + "heure_debut=" + "'" 
+                    + HeureD + "'," + "heure_fin=" + "'" + HeureF + "'," 
+                    + "id_cours=" + id_coursBDD + ","+ "id_type =" 
+                    + id_typeBDD + " where id=" + "'" + id + "'";
+
+            PreparedStatement pst = con.prepareStatement(SQL);
+
+            pst.executeUpdate();
+
+        }
+        catch(Exception exception)
+        {
+            exception.printStackTrace();
+        }
+        
+    }
+    
+    public void ModifierSeanceEnseignant(String id, String Enseignant)
+    {
+        ScolaritéC scolaC = new ScolaritéC();
+        
+        
+        
+        int id_enseignantBDD = scolaC.idEnseignant(Enseignant);
+        
+        if(Enseignant.equals(" "))
+        {
+            try
+            {
+                Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/java2020?useSSL=false", "root", "");
+
+
+                String SQL = "UPDATE seance_enseignants SET id_enseignant=" + 0 + " where id_seance=" + "'" + id + "'";
+
+                PreparedStatement pst = con.prepareStatement(SQL);
+
+                pst.executeUpdate();
+
+            }
+            catch(Exception exception)
+            {
+                exception.printStackTrace();
+            }
+        }
+        else
+        {
+            try
+            {
+                Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/java2020?useSSL=false", "root", "");
+
+
+                String SQL = "UPDATE seance_enseignants SET id_enseignant=" + id_enseignantBDD+ " where id_seance=" + "'" + id + "'";
+
+                PreparedStatement pst = con.prepareStatement(SQL);
+
+                pst.executeUpdate();
+
+            }
+            catch(Exception exception)
+            {
+                exception.printStackTrace();
+            }
+        }
+    }
+    
+    public void ModifierSeanceGroupe(String id, String Groupe, String Promotion)
+    {
+        ScolaritéC scolaC = new ScolaritéC();
+        
+        int id_groupeBDD = scolaC.idGroupe(Groupe, Promotion);
+        
+
+        try
+        {
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/java2020?useSSL=false", "root", "");
+
+
+            String SQL = "UPDATE seance_groupes SET id_groupe=" + id_groupeBDD + " where id_seance=" + "'" + id + "'";
+
+            PreparedStatement pst = con.prepareStatement(SQL);
+
+            pst.executeUpdate();
+
+        }
+        catch(Exception exception)
+        {
+            exception.printStackTrace();
+        }
+
+    }
+    
+    public void ModifierSeanceSalle(String id, String Salle)
+    {
+        ScolaritéC scolaC = new ScolaritéC();
+        
+        int id_salleBDD = scolaC.idSalle(Salle);
+        
+
+        try
+        {
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/java2020?useSSL=false", "root", "");
+
+
+            String SQL = "UPDATE seance_salles SET id_salle=" + id_salleBDD + " where id_seance=" + "'" + id + "'";
+
+            PreparedStatement pst = con.prepareStatement(SQL);
+
+            pst.executeUpdate();
+
+        }
+        catch(Exception exception)
+        {
+            exception.printStackTrace();
+        }
+
+    }
+
+
+            
+      
 }
 

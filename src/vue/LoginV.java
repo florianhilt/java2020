@@ -7,6 +7,11 @@ import java.util.*;
 import java.sql.*;
 
 
+/**
+ * Classe login qui permet de se connecter aux différentes interfaces
+ * 
+ * @author flori
+ */
 
 public class LoginV extends JFrame implements ActionListener
 {
@@ -24,11 +29,16 @@ public class LoginV extends JFrame implements ActionListener
     JFrame frame = new JFrame();
     JPanel panel = (JPanel) frame.getContentPane();
     
+    protected static String id;
     
     
+/**
+ * Creation de l'interface graphique en utilisant un Panel et une Frame
+ */
 
     public LoginV()
     {
+        String idEtu = id;
    
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         int w = this.getSize().width;
@@ -86,6 +96,11 @@ public class LoginV extends JFrame implements ActionListener
         blogin.addActionListener(this);    
     
     }
+    
+    public String getidEtudiant()
+    {
+        return this.id;
+    }
   
     public void PlacementLabel(JLabel label, int h)
     {
@@ -105,114 +120,118 @@ public class LoginV extends JFrame implements ActionListener
         Field.setBounds(w, h, size1.width, size1.height);   
     }
   
-public void actionPerformed(ActionEvent ae)
-{
-    
-    try
+    public void actionPerformed(ActionEvent ae)
     {
-        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/java2020?useSSL=false", "root", "");
 
-       
-        if (ETU.isSelected())
+        try
         {
-            
-            String SqlEtu = "select * from utilisateur WHERE email=? AND password=? and droit=1";
-            PreparedStatement pst = con.prepareStatement(SqlEtu);
-            
-            pst.setString(1, ID.getText());
-            pst.setString(2, PW.getText()); 
-            
-            ResultSet RS = pst.executeQuery();
-            
-            if (RS.next())
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/java2020?useSSL=false", "root", "");
+
+
+            if (ETU.isSelected())
             {
-                new EtudiantV();
-                this.dispose();
+                /**
+                 * Connexion a la base de donnée
+                 * Ici nous n'avons pas utilisé le model MVC car il s'agissait de la première classe que nous avons créé
+                 */
+
+                String SqlEtu = "select * from utilisateur WHERE email=? AND password=? and droit=1";
+                PreparedStatement pst = con.prepareStatement(SqlEtu);
+
+                pst.setString(1, ID.getText());
+                pst.setString(2, PW.getText()); 
+
+                ResultSet RS = pst.executeQuery();
+
+                if (RS.next())
+                {
+                    id = RS.getString("id");
+                    new EtudiantV();
+                    frame.setVisible(false);
+                    this.dispose();
+                }
+                else
+                    JOptionPane.showMessageDialog(null, "L'identifiant ou le mot de passe est incorect");
+                
+                   
             }
-            else
-               JOptionPane.showMessageDialog(null, "Wrong admin information please try again");
+
+            if (ENS.isSelected())
+            {
+
+                String SqlEtu = "select * from utilisateur WHERE email=? AND password=? and droit=2";
+                PreparedStatement pst = con.prepareStatement(SqlEtu);
+
+                pst.setString(1, ID.getText());
+                pst.setString(2, PW.getText()); 
+
+                ResultSet RS = pst.executeQuery();
+
+                if (RS.next())
+                {
+                    new EnseignantV();
+                }
+                else
+                   JOptionPane.showMessageDialog(null, "L'identifiant ou le mot de passe est incorect");
+            }
+
+            if (RES.isSelected())
+            {
+
+                String SqlEtu = "select * from utilisateur WHERE email=? AND password=? and droit=3";
+                PreparedStatement pst = con.prepareStatement(SqlEtu);
+
+                pst.setString(1, ID.getText());
+                pst.setString(2, PW.getText()); 
+
+                ResultSet RS = pst.executeQuery();
+
+                if (RS.next())
+                {
+                    JOptionPane.showMessageDialog(null, "Success");
+                }
+                else
+                   JOptionPane.showMessageDialog(null, "L'identifiant ou le mot de passe est incorect");
+            }
+
+            if (SCO.isSelected())
+            {
+
+                String SqlEtu = "select * from utilisateur WHERE email=? AND password=? and droit=4";
+                PreparedStatement pst = con.prepareStatement(SqlEtu);
+
+                pst.setString(1, ID.getText());
+                pst.setString(2, PW.getText()); 
+
+                ResultSet RS = pst.executeQuery();
+
+                if (RS.next())
+                {
+                    new ScolaritéV();
+                    frame.setVisible(false);
+                    this.dispose();
+                    frame.setVisible(false);
+                    this.dispose();
+                }
+                else
+                   JOptionPane.showMessageDialog(null, "L'identifiant ou le mot de passe est incorect");
+            }
+
+
+
         }
-        
-        if (ENS.isSelected())
+
+        catch(Exception exception)
         {
-            
-            String SqlEtu = "select * from utilisateur WHERE email=? AND password=? and droit=2";
-            PreparedStatement pst = con.prepareStatement(SqlEtu);
-            
-            pst.setString(1, ID.getText());
-            pst.setString(2, PW.getText()); 
-            
-            ResultSet RS = pst.executeQuery();
-            
-            if (RS.next())
-            {
-                JOptionPane.showMessageDialog(null, "Success");
-            }
-            else
-               JOptionPane.showMessageDialog(null, "Wrong admin information please try again");
+            exception.printStackTrace();
         }
-       
-        if (RES.isSelected())
+        /*
+        if (USR.isSelected())
         {
-            
-            String SqlEtu = "select * from utilisateur WHERE email=? AND password=? and droit=3";
-            PreparedStatement pst = con.prepareStatement(SqlEtu);
-            
-            pst.setString(1, ID.getText());
-            pst.setString(2, PW.getText()); 
-            
-            ResultSet RS = pst.executeQuery();
-            
-            if (RS.next())
-            {
-                JOptionPane.showMessageDialog(null, "Success");
-            }
-            else
-               JOptionPane.showMessageDialog(null, "Wrong admin information please try again");
-        }
-        
-        if (SCO.isSelected())
-        {
-            
-            String SqlEtu = "select * from utilisateur WHERE email=? AND password=? and droit=4";
-            PreparedStatement pst = con.prepareStatement(SqlEtu);
-            
-            pst.setString(1, ID.getText());
-            pst.setString(2, PW.getText()); 
-            
-            ResultSet RS = pst.executeQuery();
-            
-            if (RS.next())
-            {
-                JOptionPane.showMessageDialog(null, "Success");
-            }
-            else
-               JOptionPane.showMessageDialog(null, "Wrong admin information please try again");
-        }
-        
-        
-    
+            new UserInterface();
+            this.dispose();
+        } */
     }
-    
-    catch(Exception exception)
-    {
-        exception.printStackTrace();
-    }
-    /*
-    if (USR.isSelected())
-    {
-        new UserInterface();
-        this.dispose();
-    } */
+
+    public static void main( String[] args){new LoginV();}
 }
-
-public static void main( String[] args){new LoginV();}
-
-}
-
-
-
-
-
-
-
